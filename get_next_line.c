@@ -1,23 +1,35 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: raulserr <raulserr@student.42madrid.com    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/05/28 16:01:09 by raulserr          #+#    #+#             */
+/*   Updated: 2025/05/28 17:46:39 by raulserr         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "get_next_line.h"
 
 static char	*extract_line(char **stash)
 {
 	char	*line;
 	char	*rest;
-	size_t	i = 0;
+	size_t	i;
 
 	if (!*stash || !**stash)
 		return (NULL);
+	i = 0;
 	while ((*stash)[i] && (*stash)[i] != '\n')
 		i++;
-	line = malloc(i + 2);
-	if (!line)
-		return (NULL);
-	for (size_t j = 0; j <= i; j++)
-		line[j] = (*stash)[j];
-	line[i + ((*stash)[i] == '\n')] = '\0';
 	if ((*stash)[i] == '\n')
 		i++;
+	line = malloc(i + 1);
+	if (!line)
+		return (NULL);
+	ft_memcpy(line, *stash, i);
+	line[i] = '\0';
 	rest = ft_strdup(*stash + i);
 	free(*stash);
 	*stash = rest;
@@ -41,6 +53,7 @@ char	*get_next_line(int fd)
 {
 	static char	*stash;
 	int			bytes;
+	char		*line;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
@@ -53,5 +66,13 @@ char	*get_next_line(int fd)
 		stash = NULL;
 		return (NULL);
 	}
-	return (extract_line(&stash));
+	line = extract_line(&stash);
+	if (!line || !*line)
+	{
+		free(line);
+		line = NULL;
+		free(stash);
+		stash = NULL;
+	}
+	return (line);
 }

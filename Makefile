@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tu_nombre <tu_email@ejemplo.com>           +#+  +:+       +#+         #
+#    By: raulserr <raulserr@student.42madrid.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2025/05/28 00:00:00 by tu_nombre          #+#    #+#              #
-#    Updated: 2025/05/28 00:00:00 by tu_nombre         ###   ########.fr        #
+#    Created: 2025/05/28 16:12:09 by raulserr          #+#    #+#              #
+#    Updated: 2025/05/28 16:14:50 by raulserr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 

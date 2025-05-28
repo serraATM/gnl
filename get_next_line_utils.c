@@ -1,8 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_next_line_utils.c                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: raulserr <raulserr@student.42madrid.com    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/05/28 16:01:00 by raulserr          #+#    #+#             */
+/*   Updated: 2025/05/28 17:49:51 by raulserr         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "get_next_line.h"
 
 size_t	ft_strlen(const char *s)
 {
-	size_t i = 0;
+	size_t	i;
+
+	i = 0;
 	while (s && s[i])
 		i++;
 	return (i);
@@ -23,28 +37,49 @@ char	*ft_strchr(const char *s, int c)
 
 char	*ft_strdup(const char *s1)
 {
-	size_t len = ft_strlen(s1);
-	char *copy = malloc(len + 1);
+	size_t	len;
+	char	*copy;
+
+	len = ft_strlen(s1);
+	copy = malloc(len + 1);
 	if (!copy)
 		return (NULL);
-	for (size_t i = 0; i < len; i++)
-		copy[i] = s1[i];
+	ft_memcpy(copy, s1, len);
 	copy[len] = '\0';
 	return (copy);
 }
 
 char	*ft_strjoin(char *s1, char *s2)
 {
-	size_t len1 = ft_strlen(s1);
-	size_t len2 = ft_strlen(s2);
-	char *res = malloc(len1 + len2 + 1);
+	size_t	len1;
+	size_t	len2;
+	char	*res;
+
+	len1 = ft_strlen(s1);
+	len2 = ft_strlen(s2);
+	res = malloc(len1 + len2 + 1);
 	if (!res)
+	{
+		free(s1);
 		return (NULL);
-	for (size_t i = 0; i < len1; i++)
-		res[i] = s1[i];
-	for (size_t i = 0; i < len2; i++)
-		res[len1 + i] = s2[i];
+	}
+	ft_memcpy(res, s1, len1);
+	ft_memcpy(res + len1, s2, len2);
 	res[len1 + len2] = '\0';
 	free(s1);
 	return (res);
+}
+
+void	*ft_memcpy(void *dst, const void *src, size_t n)
+{
+	unsigned char		*d;
+	const unsigned char	*s;
+
+	if (!dst && !src)
+		return (NULL);
+	d = (unsigned char *)dst;
+	s = (const unsigned char *)src;
+	while (n--)
+		*d++ = *s++;
+	return (dst);
 }
