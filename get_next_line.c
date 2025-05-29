@@ -52,8 +52,8 @@ static int	read_and_stash(int fd, char **stash)
 char	*get_next_line(int fd)
 {
 	static char	*stash;
-	int			bytes;
 	char		*line;
+	int			bytes;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
@@ -67,12 +67,11 @@ char	*get_next_line(int fd)
 		return (NULL);
 	}
 	line = extract_line(&stash);
-	if (!line || !*line)
+	if (!line)
 	{
-		free(line);
-		line = NULL;
 		free(stash);
 		stash = NULL;
 	}
 	return (line);
 }
+
